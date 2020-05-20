@@ -1,6 +1,8 @@
 // import stylesheets
 import './style.css';
 
+let projectArr = [];
+
 const project = (pName) => {
   const name = pName;
   let taskArr = [];
