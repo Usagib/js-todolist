@@ -1,21 +1,98 @@
 // import stylesheets
 import './style.css';
 
-const main = document.querySelector('#content');
+let projectArr = [];
 
+const project = (pName) => {
+  const name = pName;
+  let taskArr = [];
 
-const hr = document.createElement('hr');
-hr.className = 'my-4';
+  const addTask = (Arr, task) => {
+  }
 
-const footer = document.createElement('footer');
-footer.className = 'footer';
+  const deleteTask = () => {
 
-const small = document.createElement('small');
-small.innerHTML = 'test';
+  }
 
+  const setName = (newName) => {
+    this.name = newName;
+  }
 
-footer.appendChild(hr);
-footer.appendChild(small);
+  const getName = () => {
+    return this.name;
+  }
 
+  return {
+    addTask,
+    deleteTask,
+    setName,
+    getName,
+    taskArr
+  };
 
-main.innerHTML = footer.outerHTML;
+}
+
+const task = (tName, tDescription, tDate, tChecked) => {
+  const name = tName;
+  const description = tDescription;
+  const date = tDate;
+  const checked = tChecked;
+
+  const setName = (newName) => {
+    this.name = newName;
+  }
+
+  const getName = () => {
+    return this.name;
+  }
+
+  const setDescription = (newDescription) => {
+    this.description = newDescription;
+  }
+
+  const getDescription = () => {
+    return this.description;
+  }
+
+  const setDate = (newDate) => {
+    this.date = newDate;
+  }
+
+  const getDate = () => {
+    return this.date;
+  }
+
+  const changeChecked = () => {
+    this.checked = !this.checked;
+  }
+
+  const getChecked = () => {
+    return this.checked;
+  }
+
+  return {
+    setName,
+    setDescription,
+    setDate,
+    changeChecked,
+    getName,
+    getDescription,
+    getDate,
+    getChecked
+  };
+}
+
+const render = () => {
+
+}
+
+const saveLocalAndRender = () => {
+  localStorage.setItem('LocalTaskArray', JSON.stringify(myLibrary));
+  render();
+}
+
+const test = () => {
+  let newProject = project('restaurant page');
+}
+
+test();
