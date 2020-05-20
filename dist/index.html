@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- 2. GOOGLE JQUERY JS v3.2.1  JS !-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- 3. BOOTSTRAP v4.0.0         JS !-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="collapse navbar-collapse justify-content-sm-center">
+          <ul class="navbar-nav">
+            <li class="nav-item">Todo List</li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4 bg-success" id="projectContainer">
+          create and switch project
+          <div class="card" id="projectCard">
+            <div class="card-header">
+              My Projects
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Project 1</li>
+              <li class="list-group-item">Project 2</li>
+              <li class="list-group-item">Project 3</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-sm-8 bg-info" id="todoContainer">
+          create task from project
+          <div class="card" id="taskCard">
+            <div class="card-header">
+              My Tasks
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">task 1</li>
+              <li class="list-group-item">task 2</li>
+              <li class="list-group-item">task 3</li>
+              <li class="list-group-item">task 4</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src='main.js'></script>
+  </body>
+</html>
