@@ -1,21 +1,23 @@
 // import stylesheets
 import './style.css';
 
-const main = document.querySelector('#content');
+const saveLocalAndRender = () => {
 
+}
 
-const hr = document.createElement('hr');
-hr.className = 'my-4';
+const project = (name) => {
+  const pName = name;
+  let taskArr = [];
 
-const footer = document.createElement('footer');
-footer.className = 'footer';
+  const addTask = (Arr, task) => {
 
-const small = document.createElement('small');
-small.innerHTML = 'test';
+  }
 
+  const setName = (newName) => {
+    this.pName = newName
+  }
 
-footer.appendChild(hr);
-footer.appendChild(small);
-
-
-main.innerHTML = footer.outerHTML;
+  const getName = () => {
+    return this.pName
+  }
+}
