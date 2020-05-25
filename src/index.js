@@ -1,7 +1,20 @@
 // import stylesheets
 import './style.css';
 
+// import view modules
+import home from './view/home';
+import footer from './view/footer';
+
 let projectArr = [];
+
+const main = document.querySelector('#content');
+
+main.insertAdjacentHTML('beforeEnd', '<div class="activeInfo"></div>');
+main.insertAdjacentHTML('beforeEnd', footer);
+
+const activeInfo = document.querySelector('.activeInfo');
+activeInfo.innerHTML = home;
+
 
 const project = (pName) => {
   const name = pName;
