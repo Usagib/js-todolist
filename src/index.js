@@ -33,13 +33,11 @@ function addProject() {
   renderProjects(projectList);
 }
 
-
 function removeProject(project) {
   projectList.splice((project.id - 1), 1);
   alert(project.title + " deleted")
   renderProjects(projectList);
 }
-
 
 function addTodo() {
 
@@ -85,7 +83,31 @@ function renderProjects(projectList) {
 }
 
 function renderTodos(project) {
-  
+  const todoTable = document.getElementById('todo-table');
+  todoTable.innerHTML = '';
+
+  document.getElementById('todo-table-header').style.display = "block";
+
+  project.todos.forEach((todo) => {
+
+    const tableRow = todoTable.insertRow();
+    const indexCol = document.createElement('th');
+
+    indexCol.innerHTML = todo.id;
+    tableRow.appendChild(indexCol);
+
+    const titleCol = tableRow.insertCell(1);
+    titleCol.innerHTML = todo.title;
+
+    const dueDateCol = tableRow.insertCell(2);
+    dueDateCol.innerHTML = todo.dueDate;
+
+    const priorityCol = tableRow.insertCell(3);
+    priorityCol.innerHTML = todo.priority;
+
+    const descriptionCol = tableRow.insertCell(4);
+    descriptionCol.innerHTML = todo.description;
+  });
 }
 
 const saveLocalAndRender = () => {
