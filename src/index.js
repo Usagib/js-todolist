@@ -39,6 +39,14 @@ function removeProject(project) {
   renderProjects(projectList);
 }
 
+function editProject(project, index) {
+  const newName = document.getElementById('edit-project-title').value;
+  projectList[index].title = newName;
+  alert(projectList[index].title + "updated");
+  document.getElementById('edit-project-title').value = ' ';
+  renderProjects(projectList);
+}
+
 function addTodo() {
   const todoTitle = document.getElementById('new-todo-title').value;
   const todoDueDate = document.getElementById('new-todo-dueDate').value;
@@ -72,10 +80,19 @@ function renderProjects(projectList) {
 
     const editCol = tableRow.insertCell(2);
     const editButton = document.createElement('button');
+    let index;
     editButton.innerText = "edit";
     editButton.classList.add("btn", "btn-outline-secondary", "btn-sm");
-    editButton.addEventListener('click', function (e) {
-      //renderProjects(projectList);
+    editButton.setAttribute("data-toggle", "modal");
+    editButton.setAttribute("data-target", "#modelEditProject");
+    editButton.addEventListener('click', function () {
+      index = project.id - 1;
+      console.log(index);
+    });
+    const submitButton = document.getElementById('editProject');
+    submitButton.addEventListener('click', function () {
+      editProject(project, index);
+      index = null;
     });
     editCol.appendChild(editButton);
 
