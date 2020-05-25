@@ -4,6 +4,8 @@ import './view/css/style.css';
 // import view modules
 import home from './view/home';
 import footer from './view/footer';
+import Project from './controller/project';
+import Todo  from './controller/todo';
 
 let projectArr = [];
 
@@ -105,7 +107,9 @@ const saveLocalAndRender = () => {
 }
 
 const test = () => {
-  let newProject = project('restaurant page');
+  testarray = [];
+  let newProject = new Project('Example', testarray);
+  console.log(newproject);
 }
 
 test();
