@@ -20,7 +20,7 @@ function populateProjects() {
 
 // store lib in localstorage
 if (localStorage.getItem("projectList") === null) {
-  populateProjects();
+  //populateProjects();
   localStorage.setItem("projectList", JSON.stringify(localProjectList));
 } else {
   localProjectList = JSON.parse(localStorage.getItem("projectList"));

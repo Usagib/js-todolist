@@ -38,7 +38,7 @@ function addProject() {
 }
 
 function removeProject(project) {
-  let obj = projectList.find(o => o.id == 4);
+  let obj = projectList.find(o => o.id == (project.id));
   projectList.splice(projectList.indexOf(obj), 1);
 
   alert(project.title + " deleted")
