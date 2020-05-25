@@ -40,7 +40,15 @@ function removeProject(project) {
 }
 
 function addTodo() {
+  const todoTitle = document.getElementById('new-todo-title').value;
+  const todoDueDate = document.getElementById('new-todo-dueDate').value;
+  const todoPriority = document.getElementById('new-todo-priority').value;
+  const dotoDescription = document.getElementById('new-todo-description').value;
 
+  const todo = new Todo(todoTitle, todoDueDate, todoPriority, dotoDescription);
+  todotList.push(todo);
+
+  renderProjects(projectList);
 }
 
 function renderProjects(projectList) {
@@ -110,17 +118,22 @@ function renderTodos(project) {
   });
 }
 
-const saveLocalAndRender = () => {
-  localStorage.setItem('LocalTaskArray', JSON.stringify(myLibrary));
-  render();
+function populateProjects() {
+  const todo01P01 = new Todo("todo-01-p1", "01/01/2021", "low", "this is my todo 01");
+  const todo02P01 = new Todo("todo-02-p1", "01/01/2022", "normal", "this is my todo 02");
+  const todo03P01 = new Todo("todo-03-p1", "01/01/2022", "important", "this is my todo 03");
+
+  const todo01P02 = new Todo("todo-01-p2", "01/01/2021", "low", "this is my todo 01");
+  const todo02P02 = new Todo("todo-02-p2", "01/01/2022", "normal", "this is my todo 02");
+
+  const todo01P03 = new Todo("todo-01-p3", "01/01/2022", "normal", "this is my todo 02");
+
+  projectList.push(new Project("project-01", [todo01P01, todo02P01, todo03P01]));
+  projectList.push(new Project("project-02", [todo01P02, todo02P02]));
+  projectList.push(new Project("project-03", [todo01P03]));
 }
 
-const test = () => {
-  let testarray = [];
-  let newProject = new Project('Example', testarray);
-  console.log(newProject);
-  let newTodo = new Todo('Example', Date.now(), 'low', 'exampledesc');
-  console.log(newTodo);
-}
+console.log(projectList);
 
-test();
+populateProjects();
+renderProjects(projectList);
