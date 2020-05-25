@@ -4,101 +4,43 @@ import './view/css/style.css';
 // import view modules
 import home from './view/home';
 import footer from './view/footer';
+
+// import controller modules
 import Project from './controller/project';
 import Todo  from './controller/todo';
 
-let projectArr = [];
+let projectList = [];
 
+// project render init
 const main = document.querySelector('#content');
-
 main.insertAdjacentHTML('beforeEnd', '<div class="activeInfo"></div>');
 main.insertAdjacentHTML('beforeEnd', footer);
-
 const activeInfo = document.querySelector('.activeInfo');
 activeInfo.innerHTML = home;
 
+// add burtton renders
+const btnAddProject = document.getElementById('addProject');
+btnAddProject.onclick = () => { addProject(); };
 
-const project = (pName) => {
-  const name = pName;
-  let taskArr = [];
+const btnAddTodo = document.getElementById('addTodo');
+btnAddTodo.onclick = () => { addTodo(); };
 
-  const addTask = (Arr, task) => {
-  }
+function addProject() {
+  const projectTitle = document.getElementByid('new-project-title').value;
+  const newProject = new Project(projectTitle);
+  projectList.push(newProject);
+}
 
-  const deleteTask = () => {
-
-  }
-
-  const setName = (newName) => {
-    this.name = newName;
-  }
-
-  const getName = () => {
-    return this.name;
-  }
-
-  return {
-    addTask,
-    deleteTask,
-    setName,
-    getName,
-    taskArr
-  };
+function addTodo() {
 
 }
 
-const task = (tName, tDescription, tDate, tChecked) => {
-  const name = tName;
-  const description = tDescription;
-  const date = tDate;
-  const checked = tChecked;
-
-  const setName = (newName) => {
-    this.name = newName;
-  }
-
-  const getName = () => {
-    return this.name;
-  }
-
-  const setDescription = (newDescription) => {
-    this.description = newDescription;
-  }
-
-  const getDescription = () => {
-    return this.description;
-  }
-
-  const setDate = (newDate) => {
-    this.date = newDate;
-  }
-
-  const getDate = () => {
-    return this.date;
-  }
-
-  const changeChecked = () => {
-    this.checked = !this.checked;
-  }
-
-  const getChecked = () => {
-    return this.checked;
-  }
-
-  return {
-    setName,
-    setDescription,
-    setDate,
-    changeChecked,
-    getName,
-    getDescription,
-    getDate,
-    getChecked
-  };
+function renderProjects(projectList) {
+  addProject();
 }
 
-const render = () => {
-
+function renderTodos(project) {
+  
 }
 
 const saveLocalAndRender = () => {
@@ -107,9 +49,11 @@ const saveLocalAndRender = () => {
 }
 
 const test = () => {
-  testarray = [];
+  let testarray = [];
   let newProject = new Project('Example', testarray);
-  console.log(newproject);
+  console.log(newProject);
+  let newTodo = new Todo('Example', Date.now(), 'low', 'exampledesc');
+  console.log(newTodo);
 }
 
 test();
