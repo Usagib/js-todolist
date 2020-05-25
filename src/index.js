@@ -11,7 +11,7 @@ import Todo  from './controller/todo';
 
 let projectList = [];
 
-// project render init
+// loads home
 const main = document.querySelector('#content');
 main.insertAdjacentHTML('beforeEnd', '<div class="activeInfo"></div>');
 main.insertAdjacentHTML('beforeEnd', footer);
