@@ -9,7 +9,10 @@ import footer from './view/footer';
 import Project from './controller/project';
 import Todo  from './controller/todo';
 
-let projectList = [];
+// import model
+import LocalSave from './model/localSave.js';
+
+let projectList = LocalSave;
 
 // loads home
 const main = document.querySelector('#content');
@@ -29,13 +32,15 @@ function addProject() {
   const projectTitle = document.getElementById('new-project-title').value;
   const newProject = new Project(projectTitle);
   projectList.push(newProject);
-
+  
+  saveLocal();
   renderProjects(projectList);
 }
 
 function removeProject(project) {
   projectList.splice((project.id - 1), 1);
   alert(project.title + " deleted")
+  saveLocal();
   renderProjects(projectList);
 }
 
@@ -88,6 +93,7 @@ function renderProjects(projectList) {
     });
     deleteCol.appendChild(removeButton);
   });
+  saveLocal();
 }
 
 function renderTodos(project) {
@@ -118,22 +124,12 @@ function renderTodos(project) {
   });
 }
 
-function populateProjects() {
-  const todo01P01 = new Todo("todo-01-p1", "01/01/2021", "low", "this is my todo 01");
-  const todo02P01 = new Todo("todo-02-p1", "01/01/2022", "normal", "this is my todo 02");
-  const todo03P01 = new Todo("todo-03-p1", "01/01/2022", "important", "this is my todo 03");
 
-  const todo01P02 = new Todo("todo-01-p2", "01/01/2021", "low", "this is my todo 01");
-  const todo02P02 = new Todo("todo-02-p2", "01/01/2022", "normal", "this is my todo 02");
-
-  const todo01P03 = new Todo("todo-01-p3", "01/01/2022", "normal", "this is my todo 02");
-
-  projectList.push(new Project("project-01", [todo01P01, todo02P01, todo03P01]));
-  projectList.push(new Project("project-02", [todo01P02, todo02P02]));
-  projectList.push(new Project("project-03", [todo01P03]));
+// save to local storage
+function saveLocal() {
+  localStorage.setItem("projectList", JSON.stringify(projectList));
 }
 
 console.log(projectList);
 
-populateProjects();
 renderProjects(projectList);
