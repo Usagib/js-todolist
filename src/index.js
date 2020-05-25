@@ -1,5 +1,5 @@
 // import stylesheets
-import './style.css';
+import './view/css/style.css';
 
 // import view modules
 import home from './view/home';

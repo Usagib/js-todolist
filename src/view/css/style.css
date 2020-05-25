@@ -1,0 +1,31 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+
+/* universal */
+html,
+body {
+  font-size: 16px;
+  overflow-x: hidden;
+}
+
+a {
+  color: gray;
+}
+
+a:hover {
+  color: black;
+}
+
+/* imges */
+img {
+  object-fit: cover;
+}
+
+/* footer */
+
+footer {
+  padding: 15px;
+}
+
+footer small {
+  float: right;
+}
