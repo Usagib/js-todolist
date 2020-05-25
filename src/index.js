@@ -1,5 +1,3 @@
-// import stylesheets
-import './style.css';
 
 let projectArr = [];
 
@@ -7,26 +5,23 @@ const project = (pName) => {
   const name = pName;
   let taskArr = [];
 
-  const addTask = (Arr, task) => {
+  const addTask = (task) => {
+    taskArr.push(task);
   }
 
-  const deleteTask = () => {
-
+  const deleteTask = (task) => {
+    taskArr.delete(array);
   }
 
   const setName = (newName) => {
-    this.name = newName;
-  }
-
-  const getName = () => {
-    return this.name;
+    name = newName;
   }
 
   return {
     addTask,
     deleteTask,
     setName,
-    getName,
+    name,
     taskArr
   };
 
@@ -39,50 +34,55 @@ const task = (tName, tDescription, tDate, tChecked) => {
   const checked = tChecked;
 
   const setName = (newName) => {
-    this.name = newName;
-  }
-
-  const getName = () => {
-    return this.name;
+    name = newName;
   }
 
   const setDescription = (newDescription) => {
     this.description = newDescription;
   }
 
-  const getDescription = () => {
-    return this.description;
-  }
-
   const setDate = (newDate) => {
     this.date = newDate;
-  }
-
-  const getDate = () => {
-    return this.date;
   }
 
   const changeChecked = () => {
     this.checked = !this.checked;
   }
 
-  const getChecked = () => {
-    return this.checked;
-  }
 
   return {
     setName,
     setDescription,
-    setDate,
+    description,
     changeChecked,
-    getName,
-    getDescription,
-    getDate,
-    getChecked
+    name,
+    setDescription,
+    date,
   };
 }
 
 const render = () => {
+
+  const projectToList = () => {
+    let i = projectArr.length - 1;
+    let projli = document.createElement("li");
+    projli.classList.add("list-group-item");
+    projli.innerText = projectArr[i].name;
+    document.getElementById("projectContainer").appendChild(projli);
+    let addTaskBtn = document.createElement("button");
+    addTaskBtn.setAttribute("class", "btn btn-success ml-5");
+    addTaskBtn.setAttribute("id", "newTaskButton"+i);
+    addTaskBtn.innerText = "Add Task";
+    projli.appendChild(addTaskBtn);
+    let newbtn = document.getElementById('newTaskButton'+i);
+    console.log(projectArr[i]);
+    newbtn.addEventListener("click", function() {
+      let newtask = task('examplename', 'exampledesc', Date.now, false);
+      projectArr[i].taskArr.push(task());
+      console.log(projectArr[i].taskArr);
+    });
+  }
+  projectToList();
 
 }
 
@@ -95,4 +95,12 @@ const test = () => {
   let newProject = project('restaurant page');
 }
 
+const eventListener = () => {
+  document.getElementById('newproject').onclick = () => {
+    projectArr.push(project('Example'));
+    render();
+  };
+}
+
+eventListener();
 test();
