@@ -13,15 +13,15 @@ function populateProjects() {
 
   const todo01P03 = new Todo("todo-01-p3", "01/01/2022", "normal", "this is my todo 02");
 
-  projectList.push(new Project("project-01", [todo01P01, todo02P01, todo03P01]));
-  projectList.push(new Project("project-02", [todo01P02, todo02P02]));
-  projectList.push(new Project("project-03", [todo01P03]));
+  localProjectList.push(new Project("project-01", [todo01P01, todo02P01, todo03P01]));
+  localProjectList.push(new Project("project-02", [todo01P02, todo02P02]));
+  localProjectList.push(new Project("project-03", [todo01P03]));
 }
 
 // store lib in localstorage
 if (localStorage.getItem("projectList") === null) {
   populateProjects();
-  localStorage.setItem("projectList", JSON.stringify(projectList));
+  localStorage.setItem("projectList", JSON.stringify(localProjectList));
 } else {
   localProjectList = JSON.parse(localStorage.getItem("projectList"));
 }
