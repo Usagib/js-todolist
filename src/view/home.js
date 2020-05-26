@@ -1,6 +1,6 @@
 const home =
 
-  `
+`
 <div class='jumbotron m-3 p-3'>
   <h1 class='display-4'>todo-list-js-webpack</h1>
   <p class='lead'>this is a simple todo-list-js-webpack app</p>
