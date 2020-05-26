@@ -58,6 +58,29 @@ function removeTodo(todo, project) {
   renderTodos(projectList[currentProject]);
 }
 
+function editTodo(todo, project, index) {
+  console.log('enteringfunction');
+  console.log(todo);
+  console.log(project);
+  console.log(project.todos);
+  console.log(project.todos[index]);
+  const newName = document.getElementById('edit-todo-title').value;
+  project.todos[index].title = newName;
+  const newDate = document.getElementById('edit-todo-dueDate').value;
+  project.todos[index].dueDate = newDate;
+  const newPrior = document.getElementById('edit-todo-priority').value;
+  project.todos[index].priority = newPrior;
+  const newDesc = document.getElementById('edit-todo-description').value;
+  project.todos[index].description = newDesc;
+  alert(project.todos[index].title + " updated");
+  document.getElementById('edit-todo-title').value = ' ';
+  document.getElementById('edit-todo-dueDate').value = ' ';
+  document.getElementById('edit-todo-priority').value = ' ';
+  document.getElementById('edit-todo-description').value = ' ';
+  saveLocal();
+  renderTodos(projectList[currentProject]);
+}
+
 // add todo to project save local and render
 function addTodo(todoList) {
   const todoTitle = document.getElementById('new-todo-title').value;
@@ -134,6 +157,7 @@ function renderProjects(projectList) {
 function renderTodos(project) {
   const todoTable = document.getElementById('todo-table');
   todoTable.innerHTML = '';
+  let index;
 
   //document.getElementById('todo-table-header').style.display = "block";
 
@@ -165,10 +189,16 @@ function renderTodos(project) {
     editButton.innerText = "edit";
     editButton.classList.add("btn", "btn-outline-secondary", "btn-sm");
     editButton.setAttribute("data-toggle", "modal");
-    editButton.setAttribute("data-target", "#modalEditProject");
+    editButton.setAttribute("data-target", "#modalEditTodo");
     editButton.addEventListener('click', function () {
-      console.log(clicked);
-      renderTodos(project);
+      index = project.todos.indexOf(todo);
+      console.log(index);
+      console.log("edit button clicked index " + index);
+    });
+    const submitButton = document.getElementById('editTodo');
+    submitButton.addEventListener('click', function() {
+      editTodo(todo, project, index);
+      // renderTodos(projectList[currentProject]);
     });
     editCol.appendChild(editButton);
 
