@@ -15,6 +15,19 @@ a:hover {
   color: black;
 }
 
+/* table and badge */
+.table th, .table td {
+  padding: 0.5rem;
+  vertical-align: middle;
+  border-top: 0px;
+}
+
+.badge {
+  display: block;
+  margin-top: 0.5rem !important;
+  border: none;
+}
+
 /* imges */
 img {
   object-fit: cover;
@@ -28,14 +41,4 @@ footer {
 
 footer small {
   float: right;
-}
-
-
-.table th, .table td {
-  padding: 0.5rem;
-  vertical-align: middle;
-}
-
-.badge {
-  display: block;
 }
