@@ -40,6 +40,8 @@ const home =
             <th scope="col">dueDate</th>
             <th scope="col">priority</th>
             <th scope="col">description</th>
+            <th scope="col">edit</th>
+            <th scope="col">remove</th>
           </tr>
         </thead>
         <tbody id="todo-table">
