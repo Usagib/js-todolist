@@ -107,7 +107,7 @@ const home =
           </div>
           <div class="form-group row">
             <div class="col">
-              <input id="new-todo-description" required="true" type="text" class="form-control" placeholder="description">
+              <textarea id="new-todo-description" required="true" type="text" class="form-control" placeholder="description"></textarea>
             </div>
           </div>
           <div class="d-flex justify-content-end">
