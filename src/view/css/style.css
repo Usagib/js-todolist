@@ -30,3 +30,12 @@ footer small {
   float: right;
 }
 
+
+.table th, .table td {
+  padding: 0.5rem;
+  vertical-align: middle;
+}
+
+.badge {
+  display: block;
+}
