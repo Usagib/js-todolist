@@ -98,7 +98,11 @@ const home =
               <input id="new-todo-dueDate" required="true" type="date" class="form-control" placeholder="">
             </div>
             <div class="col">
-              <input id="new-todo-priority" required="true" type="text" class="form-control" placeholder="priority">
+              <select class="form-control" id="new-todo-priority">
+                <option>low</option>
+                <option>normal</option>
+                <option>important</option>
+              </select>
             </div>
           </div>
           <div class="form-group row">
