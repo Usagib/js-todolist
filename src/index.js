@@ -13,6 +13,7 @@ import Todo  from './controller/todo';
 import LocalSave from './model/localSave.js';
 
 let projectList = LocalSave;
+let currentProject = null;
 
 // loads home
 const main = document.querySelector('#content');
@@ -26,7 +27,7 @@ const btnAddProject = document.getElementById('addProject');
 btnAddProject.onclick = () => { addProject(); };
 
 const btnAddTodo = document.getElementById('addTodo');
-btnAddTodo.onclick = () => { addTodo(); };
+btnAddTodo.onclick = () => { addTodo(projectList[currentProject].todos); };
 
 // save to local storage
 function saveLocal() {
@@ -38,7 +39,6 @@ function addProject() {
   const projectTitle = document.getElementById('new-project-title').value;
   const newProject = new Project(projectTitle);
   projectList.push(newProject);
-  
   saveLocal();
   renderProjects(projectList);
 }
@@ -47,22 +47,21 @@ function addProject() {
 function removeProject(project) {
   projectList.splice(projectList.indexOf(project), 1);
   alert(project.title + " deleted")
-
   saveLocal();
   renderProjects(projectList);
 }
 
 // add todo to project save local and render
-function addTodo() {
+function addTodo(todoList) {
   const todoTitle = document.getElementById('new-todo-title').value;
   const todoDueDate = document.getElementById('new-todo-dueDate').value;
   const todoPriority = document.getElementById('new-todo-priority').value;
   const dotoDescription = document.getElementById('new-todo-description').value;
-
   const todo = new Todo(todoTitle, todoDueDate, todoPriority, dotoDescription);
-  todotList.push(todo);
-
-  renderProjects(projectList);
+  todoList.push(todo);
+  console.log(todoList);
+  saveLocal();
+  renderTodos(projectList[currentProject]);
 }
 
 // render projectsList to project table
@@ -82,7 +81,8 @@ function renderProjects(projectList) {
     titleCol.innerHTML = project.title;
     titleCol.style.cursor = "pointer";
     titleCol.addEventListener('click', function () {
-      renderTodos(project);
+      currentProject = projectList.indexOf(project);
+      renderTodos(projectList[currentProject])
     });
 
     const editCol = tableRow.insertCell(2);
@@ -112,13 +112,13 @@ function renderTodos(project) {
   todoTable.innerHTML = '';
 
   document.getElementById('todo-table-header').style.display = "block";
-  
+
   project.todos.forEach((todo) => {
-    
+
     const tableRow = todoTable.insertRow();
     const indexCol = document.createElement('th');
 
-    indexCol.innerHTML = project.todos.indexOf(todo) + 1;  
+    indexCol.innerHTML = project.todos.indexOf(todo) + 1;
     tableRow.appendChild(indexCol);
 
     const titleCol = tableRow.insertCell(1);
@@ -132,6 +132,28 @@ function renderTodos(project) {
 
     const descriptionCol = tableRow.insertCell(4);
     descriptionCol.innerHTML = todo.description;
+
+    const editCol = tableRow.insertCell(5)
+    const editButton = document.createElement('button');
+    editButton.innerText = "edit";
+    editButton.classList.add("btn", "btn-outline-secondary", "btn-sm");
+    editButton.setAttribute("data-toggle", "modal");
+    editButton.setAttribute("data-target", "#modelEditTodo");
+    editButton.addEventListener('click', function () {
+      renderTodos(project);
+    });
+    editCol.appendChild(editButton);
+
+    const removeCol = tableRow.insertCell(6);
+    const removeButton = document.createElement('button');
+    removeButton.innerText = "remove";
+    removeButton.classList.add("btn", "btn-outline-danger", "btn-sm");
+    removeButton.addEventListener('click', function (e) {
+      renderTodos(project);
+    });
+    removeCol.appendChild(removeButton);
+
+
   });
 }
 
