@@ -64,6 +64,15 @@ function addTodo(todoList) {
   renderTodos(projectList[currentProject]);
 }
 
+function editProject(project,index) {
+  const newName = document.getElementById('edit-project-title').value;
+  projectList[index].title = newName;
+  alert(projectList[index].title + "updated");
+  document.getElementById('edit-project-title').value = ' ';
+  saveLocal();
+  renderProjects(projectList);
+}
+
 // render projectsList to project table
 function renderProjects(projectList) {
   const projectTable = document.getElementById('project-table');
@@ -87,10 +96,18 @@ function renderProjects(projectList) {
 
     const editCol = tableRow.insertCell(2);
     const editButton = document.createElement('button');
+    let index;
     editButton.innerText = "edit";
     editButton.classList.add("btn", "btn-outline-secondary", "btn-sm");
-    editButton.addEventListener('click', function (e) {
-      //renderProjects(projectList);
+    editButton.setAttribute("data-toggle", "modal");
+    editButton.setAttribute("data-target", "#modalEditProject");
+    editButton.addEventListener('click', function () {
+      index = projectList.indexOf(project);
+      console.log(index);
+    });
+    const submitButton = document.getElementById('editProject');
+    submitButton.addEventListener('click', function () {
+      editProject(project, index);
     });
     editCol.appendChild(editButton);
 
@@ -138,8 +155,9 @@ function renderTodos(project) {
     editButton.innerText = "edit";
     editButton.classList.add("btn", "btn-outline-secondary", "btn-sm");
     editButton.setAttribute("data-toggle", "modal");
-    editButton.setAttribute("data-target", "#modelEditTodo");
+    editButton.setAttribute("data-target", "#modalEditProject");
     editButton.addEventListener('click', function () {
+      console.log(clicked);
       renderTodos(project);
     });
     editCol.appendChild(editButton);
