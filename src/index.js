@@ -51,6 +51,13 @@ function removeProject(project) {
   renderProjects(projectList);
 }
 
+function removeTodo(todo, project) {
+  project.todos.splice(project.todos.indexOf(todo), 1);
+  alert(todo.title + " deleted");
+  saveLocal();
+  renderTodos(projectList[currentProject]);
+}
+
 // add todo to project save local and render
 function addTodo(todoList) {
   const todoTitle = document.getElementById('new-todo-title').value;
@@ -170,7 +177,8 @@ function renderTodos(project) {
     removeButton.innerText = "remove";
     removeButton.classList.add("btn", "btn-outline-danger", "btn-sm");
     removeButton.addEventListener('click', function (e) {
-      renderTodos(project);
+      console.log('remove button clicked');
+      removeTodo(todo, project);
     });
     removeCol.appendChild(removeButton);
 
