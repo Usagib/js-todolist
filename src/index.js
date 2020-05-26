@@ -38,10 +38,9 @@ function addProject() {
 }
 
 function removeProject(project) {
-  let obj = projectList.find(o => o.id == (project.id));
-  projectList.splice(projectList.indexOf(obj), 1);
-
+  projectList.splice(projectList.indexOf(project), 1);
   alert(project.title + " deleted")
+
   saveLocal();
   renderProjects(projectList);
 }
@@ -66,7 +65,7 @@ function renderProjects(projectList) {
     const tableRow = projectTable.insertRow();
 
     const indexCol = document.createElement('th');
-    indexCol.innerHTML = project.id;
+    indexCol.innerHTML = projectList.indexOf(project) + 1;
 
     tableRow.appendChild(indexCol);
 
@@ -74,7 +73,7 @@ function renderProjects(projectList) {
     titleCol.innerHTML = project.title;
     titleCol.style.cursor = "pointer";
     titleCol.addEventListener('click', function () {
-      renderTodos(projectList[project.id - 1])
+      renderTodos(project);
     });
 
     const editCol = tableRow.insertCell(2);
@@ -103,13 +102,13 @@ function renderTodos(project) {
   todoTable.innerHTML = '';
 
   document.getElementById('todo-table-header').style.display = "block";
-
+  
   project.todos.forEach((todo) => {
-
+    
     const tableRow = todoTable.insertRow();
     const indexCol = document.createElement('th');
 
-    indexCol.innerHTML = todo.id;
+    indexCol.innerHTML = project.todos.indexOf(todo) + 1;  
     tableRow.appendChild(indexCol);
 
     const titleCol = tableRow.insertCell(1);

@@ -16,7 +16,7 @@ const home =
       <table class="table table-striped table-hover">
         <thead>
           <tr>
-            <th scope="col">id</th>
+            <th scope="col">#</th>
             <th scope="col">title</th>
             <th scope="col">edit</th>
             <th scope="col">remove</th>
@@ -35,7 +35,7 @@ const home =
       <table class="table table-striped table-hover" id='todo-table-header' style="display:none">
         <thead>
           <tr>
-            <th scope="col">id</th>
+            <th scope="col">#</th>
             <th scope="col">title</th>
             <th scope="col">dueDate</th>
             <th scope="col">priority</th>
