@@ -90,16 +90,24 @@ const home =
         <form>
           <div class="form-group row">
             <div class="col">
-              <input id="new-todo-title" required="true" type="text" class="form-control" placeholder="todo title">
+              <input id="new-todo-title" required="true" type="text" class="form-control" placeholder="title">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <input id="new-todo-dueDate" required="true" type="date" class="form-control" placeholder="">
             </div>
             <div class="col">
-              <input id="new-todo-dueDate" required="true" type="text" class="form-control" placeholder="todo due date">
+              <select class="form-control" id="new-todo-priority">
+                <option>low</option>
+                <option>normal</option>
+                <option>important</option>
+              </select>
             </div>
+          </div>
+          <div class="form-group row">
             <div class="col">
-              <input id="new-todo-priority" required="true" type="text" class="form-control" placeholder="todo priority">
-            </div>
-            <div class="col">
-              <input id="new-todo-description" required="true" type="text" class="form-control" placeholder="todo description">
+              <textarea id="new-todo-description" required="true" type="text" class="form-control" placeholder="description"></textarea>
             </div>
           </div>
           <div class="d-flex justify-content-end">
