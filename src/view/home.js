@@ -6,51 +6,50 @@ const home =
   <p class='lead'>this is a simple todo-list-js-webpack app</p>
 </div>
 <!-- dinamic content -->
-<div class="container">
-  <div class="row ">
-    <div class="col col-sm-5">
-      <div class='row justify-content-between p-3'>
-        <h3>projects</h3>
-        <button class='btn btn-info' data-toggle="modal" data-target="#modelProject">new project</button>
-      </div>
-      <table class="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">title</th>
-            <th scope="col">edit</th>
-            <th scope="col">remove</th>
-          </tr>
-        </thead>
-        <tbody id="project-table">
-          <!-- js fill -->
-        </tbody>
-      </table>
+<div class="row justify-content-between px-4">
+  <div class="col col-md-5">
+    <div class='row justify-content-between p-3'>
+      <h3>projects</h3>
+      <button class='btn btn-info' data-toggle="modal" data-target="#modelProject">new project</button>
     </div>
-    <div class="col col-sm-7">
-      <div class='row justify-content-between p-3'>
-        <h3>todos</h3>
-        <button class='btn btn-info' data-toggle="modal" data-target="#modalTodo">new todo</button>
-      </div>
-      <table class="table table-striped table-hover" id='todo-table-header' style="display:none">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">title</th>
-            <th scope="col">dueDate</th>
-            <th scope="col">priority</th>
-            <th scope="col">description</th>
-            <th scope="col">edit</th>
-            <th scope="col">remove</th>
-          </tr>
-        </thead>
-        <tbody id="todo-table">
-          <!-- js fill -->
-        </tbody>
-      </table>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">title</th>
+          <th scope="col">edit</th>
+          <th scope="col">remove</th>
+        </tr>
+      </thead>
+      <tbody id="project-table">
+        <!-- js fill -->
+      </tbody>
+    </table>
+  </div>
+  <div class="col col-md-7">
+    <div class='row justify-content-between p-3'>
+      <h3>todos</h3>
+      <button class='btn btn-info' data-toggle="modal" data-target="#modalTodo">new todo</button>
     </div>
+    <table class="table table-striped table-hover" id='todo-table-header'">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">title</th>
+          <th scope="col">dueDate</th>
+          <th scope="col">priority</th>
+          <th scope="col">description</th>
+          <th scope="col">edit</th>
+          <th scope="col">remove</th>
+        </tr>
+      </thead>
+      <tbody id="todo-table">
+        <!-- js fill -->
+      </tbody>
+    </table>
   </div>
 </div>
+
 <!-- modal project -->
 <div class="modal fade" id="modelProject" tabindex="-1" role="dialog" aria-labelledby="modelProjectLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">

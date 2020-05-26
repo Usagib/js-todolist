@@ -128,7 +128,7 @@ function renderTodos(project) {
   const todoTable = document.getElementById('todo-table');
   todoTable.innerHTML = '';
 
-  document.getElementById('todo-table-header').style.display = "block";
+  //document.getElementById('todo-table-header').style.display = "block";
 
   project.todos.forEach((todo) => {
 
