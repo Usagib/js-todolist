@@ -146,6 +146,9 @@ function renderTodos(project) {
 
     const priorityCol = tableRow.insertCell(3);
     priorityCol.innerHTML = todo.priority;
+    if (todo.priority == "low") { priorityCol.setAttribute("class", "badge badge-success");}
+    if (todo.priority == "normal") { priorityCol.setAttribute("class", "badge badge-warning"); }
+    if (todo.priority == "important") { priorityCol.setAttribute("class", "badge badge-danger"); }
 
     const descriptionCol = tableRow.insertCell(4);
     descriptionCol.innerHTML = todo.description;
