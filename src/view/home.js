@@ -131,7 +131,7 @@ const home =
         <form>
           <div class="form-group row">
             <div class="col">
-              <input id="edit-project-title" required="true" type="text" class="form-control" placeholder="todo title">
+              <input id="edit-project-title" required="true" type="text" class="form-control" placeholder="new project title">
             </div>
           </div>
           <div class="d-flex justify-content-end">

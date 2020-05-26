@@ -31,7 +31,7 @@ btnAddTodo.onclick = () => { addTodo(projectList[currentProject].todos); };
 
 // save to local storage
 function saveLocal() {
-  localStorage.setItem("projectList", JSON.stringify(projectList));
+  localStorage.setItem("projectList", JSON.stringify(projectList));  
 }
 
 // add project to projectList, save local and render
@@ -40,7 +40,8 @@ function addProject() {
   const newProject = new Project(projectTitle);
   projectList.push(newProject);
   saveLocal();
-  renderProjects(projectList);
+  location.reload();
+  //renderProjects(projectList);
 }
 
 // remove project from projectList, save local and render
@@ -48,14 +49,15 @@ function removeProject(project) {
   projectList.splice(projectList.indexOf(project), 1);
   alert(project.title + " deleted")
   saveLocal();
-  renderProjects(projectList);
+  location.reload();
 }
 
 function removeTodo(todo, project) {
   project.todos.splice(project.todos.indexOf(todo), 1);
   alert(todo.title + " deleted");
   saveLocal();
-  renderTodos(projectList[currentProject]);
+  location.reload();
+  //renderTodos(projectList[currentProject]);
 }
 
 function editTodo(todo, project, index) {
@@ -78,7 +80,8 @@ function editTodo(todo, project, index) {
   document.getElementById('edit-todo-priority').value = ' ';
   document.getElementById('edit-todo-description').value = ' ';
   saveLocal();
-  renderTodos(projectList[currentProject]);
+  location.reload();
+  //renderTodos(projectList[currentProject]);
 }
 
 // add todo to project save local and render
@@ -91,16 +94,19 @@ function addTodo(todoList) {
   todoList.push(todo);
   console.log(todoList);
   saveLocal();
-  renderTodos(projectList[currentProject]);
+  location.reload();
+  //renderTodos(projectList[currentProject]);
 }
 
-function editProject(project,index) {
+function editProject(project) {
   const newName = document.getElementById('edit-project-title').value;
-  projectList[index].title = newName;
-  alert(projectList[index].title + "updated");
-  document.getElementById('edit-project-title').value = ' ';
+  projectList[projectList.indexOf(project)].title = newName;
+
+  //alert(projectList[projectList.indexOf(project)].title + " updated");
+  //document.getElementById('edit-project-title').value = ' ';
   saveLocal();
-  renderProjects(projectList);
+  location.reload();
+  //renderProjects(projectList);
 }
 
 // render projectsList to project table
@@ -126,20 +132,21 @@ function renderProjects(projectList) {
 
     const editCol = tableRow.insertCell(2);
     const editButton = document.createElement('button');
-    let index;
     editButton.innerText = "edit";
     editButton.classList.add("btn", "btn-outline-secondary", "btn-sm");
     editButton.setAttribute("data-toggle", "modal");
     editButton.setAttribute("data-target", "#modalEditProject");
-    editButton.addEventListener('click', function () {
-      index = projectList.indexOf(project);
-      console.log(index);
-    });
+    //editButton.addEventListener('click', function () {
+      //editProject(project);
+      //index = projectList.indexOf(project);
+      //console.log(index);
+    //});
     const submitButton = document.getElementById('editProject');
     submitButton.addEventListener('click', function () {
-      editProject(project, index);
+      editProject(project);
     });
     editCol.appendChild(editButton);
+    //editCol.appendChild(submitButton);
 
     const deleteCol = tableRow.insertCell(3);
     const removeButton = document.createElement('button');
@@ -158,8 +165,6 @@ function renderTodos(project) {
   const todoTable = document.getElementById('todo-table');
   todoTable.innerHTML = '';
   let index;
-
-  //document.getElementById('todo-table-header').style.display = "block";
 
   project.todos.forEach((todo) => {
 
@@ -216,7 +221,6 @@ function renderTodos(project) {
   });
 }
 
-
-console.log(projectList);
+//console.log(projectList);
 
 renderProjects(projectList);
