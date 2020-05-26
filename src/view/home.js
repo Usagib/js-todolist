@@ -148,7 +148,7 @@ const home =
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="modalEditTodoLabel">Edit your todo</h5>
-        <button type="button" id="editProject" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" id="editTodo" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
