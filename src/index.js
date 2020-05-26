@@ -198,7 +198,6 @@ function renderTodos(project) {
     const submitButton = document.getElementById('editTodo');
     submitButton.addEventListener('click', function() {
       editTodo(todo, project, index);
-      // renderTodos(projectList[currentProject]);
     });
     editCol.appendChild(editButton);
 
