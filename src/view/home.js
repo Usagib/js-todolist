@@ -142,6 +142,48 @@ const home =
     </div>
   </div>
 </div>
+<!-- modal edit todo -->
+<div class="modal fade" id="modalEditTodo" tabindex="-1" role="dialog" aria-labelledby="modalEditTodoLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalEditTodoLabel">Edit your todo</h5>
+        <button type="button" id="editProject" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group row">
+            <div class="col">
+              <input id="edit-todo-title" required="true" type="text" class="form-control" placeholder="title">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <input id="edit-todo-dueDate" required="true" type="date" class="form-control" placeholder="">
+            </div>
+            <div class="col">
+              <select class="form-control" id="edit-todo-priority">
+                <option>low</option>
+                <option>normal</option>
+                <option>important</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <textarea id="edit-todo-description" required="true" type="text" class="form-control" placeholder="description"></textarea>
+            </div>
+          </div>
+          <div class="d-flex justify-content-end">
+            <input type="button" class="btn btn-secondary" id="editTodo" value="Edit" data-dismiss="modal">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 `
 
 export default home;
