@@ -21,13 +21,19 @@ main.insertAdjacentHTML('beforeEnd', footer);
 const activeInfo = document.querySelector('.activeInfo');
 activeInfo.innerHTML = home;
 
-// add burtton renders
+// add button actions
 const btnAddProject = document.getElementById('addProject');
 btnAddProject.onclick = () => { addProject(); };
 
 const btnAddTodo = document.getElementById('addTodo');
 btnAddTodo.onclick = () => { addTodo(); };
 
+// save to local storage
+function saveLocal() {
+  localStorage.setItem("projectList", JSON.stringify(projectList));
+}
+
+// add project to projectList, save local and render
 function addProject() {
   const projectTitle = document.getElementById('new-project-title').value;
   const newProject = new Project(projectTitle);
@@ -37,6 +43,7 @@ function addProject() {
   renderProjects(projectList);
 }
 
+// remove project from projectList, save local and render
 function removeProject(project) {
   projectList.splice(projectList.indexOf(project), 1);
   alert(project.title + " deleted")
@@ -45,6 +52,7 @@ function removeProject(project) {
   renderProjects(projectList);
 }
 
+// add todo to project save local and render
 function addTodo() {
   const todoTitle = document.getElementById('new-todo-title').value;
   const todoDueDate = document.getElementById('new-todo-dueDate').value;
@@ -57,6 +65,7 @@ function addTodo() {
   renderProjects(projectList);
 }
 
+// render projectsList to project table
 function renderProjects(projectList) {
   const projectTable = document.getElementById('project-table');
   projectTable.innerHTML = '';
@@ -97,6 +106,7 @@ function renderProjects(projectList) {
   saveLocal();
 }
 
+// render todos to todo table
 function renderTodos(project) {
   const todoTable = document.getElementById('todo-table');
   todoTable.innerHTML = '';
@@ -125,11 +135,6 @@ function renderTodos(project) {
   });
 }
 
-
-// save to local storage
-function saveLocal() {
-  localStorage.setItem("projectList", JSON.stringify(projectList));
-}
 
 console.log(projectList);
 
