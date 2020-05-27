@@ -79,7 +79,7 @@ function editTodo(todoIndex) {
   projectList[currentProjectIndex].todos[todoIndex].description = newDesc;
 
   saveLocal();
-  renderTodos(projectList[currentProjectIndex]);
+  renderTodos(projectList[currentProjectIndex]); // eslint-disable-line no-use-before-define
 }
 
 function setTodoModal(todoIndex) {
