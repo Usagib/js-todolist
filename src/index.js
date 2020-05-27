@@ -37,7 +37,7 @@ btnEditTodo.onclick = () => { editTodo(btnEditTodo.getAttribute("curr-todo-index
 
 // save to local storage
 function saveLocal() {
-  localStorage.setItem("projectList", JSON.stringify(projectList));  
+  localStorage.setItem("projectList", JSON.stringify(projectList));
 }
 
 // add project to projectList, save local and reload
@@ -55,6 +55,12 @@ function editProject(projectIndex) {
 
   saveLocal();
   location.reload();
+}
+
+function setProjectModal(projectIndex) {
+
+  document.getElementById('edit-project-title').value = projectList[projectIndex].title;
+
 }
 
 // remove project from projectList, save local and render
@@ -75,7 +81,8 @@ function removeTodo(project, todo) {
 }
 
 function editTodo(todoIndex) {
-  
+
+
   const newName = document.getElementById('edit-todo-title').value;
   projectList[currentProjectIndex].todos[todoIndex].title = newName;
 
@@ -92,6 +99,15 @@ function editTodo(todoIndex) {
 
   saveLocal();
   renderTodos(projectList[currentProjectIndex]);
+}
+
+function setTodoModal(todoIndex) {
+
+    document.getElementById('edit-todo-title').value = projectList[currentProjectIndex].todos[todoIndex].title;
+    document.getElementById('edit-todo-dueDate').value =   projectList[currentProjectIndex].todos[todoIndex].dueDate;
+    document.getElementById('edit-todo-priority').value = projectList[currentProjectIndex].todos[todoIndex].priority;
+    document.getElementById('edit-todo-description').value = projectList[currentProjectIndex].todos[todoIndex].description;
+
 }
 
 // add todo to project save local and render
@@ -134,7 +150,9 @@ function renderProjects(projectList) {
     editButton.classList.add("btn", "btn-outline-secondary", "btn-sm");
     editButton.setAttribute("data-toggle", "modal");
     editButton.setAttribute("data-target", "#modalEditProject");
-    editButton.onclick = () => { btnEditProject.setAttribute("curr-project-index", projectList.indexOf(project)); };
+    editButton.onclick = () => {
+      setProjectModal(projectList.indexOf(project));
+      btnEditProject.setAttribute("curr-project-index", projectList.indexOf(project)); };
     editCol.appendChild(editButton);
 
     const deleteCol = tableRow.insertCell(3);
@@ -144,7 +162,7 @@ function renderProjects(projectList) {
     removeButton.onclick = () => { removeProject(project); };
     deleteCol.appendChild(removeButton);
   });
-  
+
   saveLocal();
 }
 
@@ -183,8 +201,11 @@ function renderTodos(project) {
     editButton.innerText = "edit";
     editButton.classList.add("btn", "btn-outline-secondary", "btn-sm");
     editButton.setAttribute("data-toggle", "modal");
-    editButton.setAttribute("data-target", "#modalEditTodo");   
-    editButton.onclick = () => { btnEditTodo.setAttribute("curr-todo-index", project.todos.indexOf(todo)); };
+    editButton.setAttribute("data-target", "#modalEditTodo");
+    editButton.onclick = () => {
+      setTodoModal(project.todos.indexOf(todo));
+      btnEditTodo.setAttribute("curr-todo-index", project.todos.indexOf(todo));
+     };
     editCol.appendChild(editButton);
 
     const removeCol = tableRow.insertCell(6);
