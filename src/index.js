@@ -41,7 +41,7 @@ function editProject(projectIndex) {
   projectList[projectIndex].title = newName;
 
   saveLocal();
-  renderProjects(projectList);
+  renderProjects(projectList); // eslint-disable-line no-use-before-define
 }
 
 function setProjectModal(projectIndex) {
@@ -59,7 +59,7 @@ function removeProject(project) {
 
 function removeTodo(project, todo) {
   project.todos.splice(project.todos.indexOf(todo), 1);
-  alert(`${todo.title} deleted`); // eslint-disable-line no-restricted-globals
+  alert(`${todo.title} deleted`); // eslint-disable-line no-alert
 
   saveLocal();
   location.reload(); // eslint-disable-line no-restricted-globals
