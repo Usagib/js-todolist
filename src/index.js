@@ -63,7 +63,7 @@ function removeProject(project) {
   location.reload();
 }
 
-function removeTodo(todo, project) {
+function removeTodo(project, todo) {
   project.todos.splice(project.todos.indexOf(todo), 1);
   alert(todo.title + " deleted");
 
@@ -137,9 +137,7 @@ function renderProjects(projectList) {
     const removeButton = document.createElement('button');
     removeButton.innerText = "remove";
     removeButton.classList.add("btn", "btn-outline-danger", "btn-sm");
-    removeButton.addEventListener('click', function (e) {
-      removeProject(project);
-    });
+    removeButton.onclick = () => { removeProject(project); };
     deleteCol.appendChild(removeButton);
   });
   
@@ -181,11 +179,7 @@ function renderTodos(project) {
     editButton.classList.add("btn", "btn-outline-secondary", "btn-sm");
     editButton.setAttribute("data-toggle", "modal");
     editButton.setAttribute("data-target", "#modalEditTodo");
-    editButton.addEventListener('click', function () {
-      index = project.todos.indexOf(todo);
-      console.log(index);
-      console.log("edit button clicked index " + index);
-    });
+
     const submitButton = document.getElementById('editTodo');
     submitButton.addEventListener('click', function() {
       editTodo(todo, project, index);
@@ -196,10 +190,7 @@ function renderTodos(project) {
     const removeButton = document.createElement('button');
     removeButton.innerText = "remove";
     removeButton.classList.add("btn", "btn-outline-danger", "btn-sm");
-    removeButton.addEventListener('click', function (e) {
-      console.log('remove button clicked');
-      removeTodo(todo, project);
-    });
+    removeButton.onclick = () => { removeTodo(project, todo); };
     removeCol.appendChild(removeButton);
 
   });
