@@ -13,7 +13,7 @@ import Todo  from './controller/todo';
 import LocalSave from './model/localSave.js';
 
 let projectList = LocalSave;
-let currentProject = null;
+let currentProjectIndex = null;
 
 // loads home
 const main = document.querySelector('#content');
@@ -27,10 +27,13 @@ const btnAddProject = document.getElementById('addProject');
 btnAddProject.onclick = () => { addProject(); };
 
 const btnAddTodo = document.getElementById('addTodo');
-btnAddTodo.onclick = () => { addTodo(projectList[currentProject].todos); };
+btnAddTodo.onclick = () => { addTodo(projectList[currentProjectIndex].todos); };
 
 const btnEditProject = document.getElementById('editProject');
 btnEditProject.onclick = () => { editProject(btnEditProject.getAttribute("curr-project-index")); };
+
+const btnEditTodo = document.getElementById('editTodo');
+btnEditTodo.onclick = () => { editTodo(btnEditTodo.getAttribute("curr-todo-index")); };
 
 // save to local storage
 function saveLocal() {
@@ -71,23 +74,25 @@ function removeTodo(project, todo) {
   location.reload();
 }
 
-function editTodo(todo, project, index) {
+function editTodo(todoIndex) {
+  
   const newName = document.getElementById('edit-todo-title').value;
-  project.todos[index].title = newName;
+  projectList[currentProjectIndex].todos[todoIndex].title = newName;
 
-  const newDate = document.getElementById('edit-todo-dueDate').value;
-  project.todos[index].dueDate = newDate;
+  //const newDate = document.getElementById('edit-todo-dueDate').value;
+  //project.todos[index].dueDate = newDate;
 
-  const newPrior = document.getElementById('edit-todo-priority').value;
-  project.todos[index].priority = newPrior;
+  //const newPrior = document.getElementById('edit-todo-priority').value;
+  //project.todos[index].priority = newPrior;
 
-  const newDesc = document.getElementById('edit-todo-description').value;
-  project.todos[index].description = newDesc;
+  //const newDesc = document.getElementById('edit-todo-description').value;
+  //project.todos[index].description = newDesc;
 
-  alert(project.todos[index].title + " updated");
+  //alert(project.todos[index].title + " updated");
 
   saveLocal();
-  location.reload();
+  //location.reload();
+  renderTodos(projectList[currentProjectIndex]);
 }
 
 // add todo to project save local and render
@@ -144,11 +149,12 @@ function renderProjects(projectList) {
   saveLocal();
 }
 
-// render todos to todo table
+// render todos table
 function renderTodos(project) {
+  currentProjectIndex = projectList.indexOf(project);
+
   const todoTable = document.getElementById('todo-table');
   todoTable.innerHTML = '';
-  let index;
 
   project.todos.forEach((todo) => {
 
@@ -178,12 +184,8 @@ function renderTodos(project) {
     editButton.innerText = "edit";
     editButton.classList.add("btn", "btn-outline-secondary", "btn-sm");
     editButton.setAttribute("data-toggle", "modal");
-    editButton.setAttribute("data-target", "#modalEditTodo");
-
-    const submitButton = document.getElementById('editTodo');
-    submitButton.addEventListener('click', function() {
-      editTodo(todo, project, index);
-    });
+    editButton.setAttribute("data-target", "#modalEditTodo");   
+    editButton.onclick = () => { btnEditTodo.setAttribute("curr-todo-index", project.todos.indexOf(todo)); };
     editCol.appendChild(editButton);
 
     const removeCol = tableRow.insertCell(6);
