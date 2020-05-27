@@ -1,7 +1,7 @@
 import Project from '../controller/project';
 import Todo from '../controller/todo';
 
-let localProjectList = [];
+let localProjectList = []; // eslint-disable-line import/no-mutable-exports
 
 function populateProjects() {
   const todo01P01 = new Todo('todo-01-p1', '01/01/2021', 'low', 'this is my todo 01');

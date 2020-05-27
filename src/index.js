@@ -22,49 +22,98 @@ main.insertAdjacentHTML('beforeEnd', footer);
 const activeInfo = document.querySelector('.activeInfo');
 activeInfo.innerHTML = home;
 
+// save to local storage
+function saveLocal() {
+  localStorage.setItem('projectList', JSON.stringify(projectList));
+}
 
-// render projectsList to project table
-function renderProjects(projectList) {
-  const projectTable = document.getElementById('project-table');
-  projectTable.innerHTML = '';
+// add project to projectList, save local and reload
+function addProject() {
+  const projectTitle = document.getElementById('new-project-title').value;
+  const newProject = new Project(projectTitle);
+  projectList.push(newProject);
+  saveLocal();
+  location.reload(); // eslint-disable-line no-restricted-globals
+}
 
-  projectList.forEach((project) => {
-    const tableRow = projectTable.insertRow();
-
-    const indexCol = document.createElement('th');
-    indexCol.innerHTML = projectList.indexOf(project) + 1;
-
-    tableRow.appendChild(indexCol);
-
-    const titleCol = tableRow.insertCell(1);
-    titleCol.innerHTML = project.title;
-    titleCol.style.cursor = 'pointer';
-    titleCol.addEventListener('click', () => {
-      renderTodos(project);
-    });
-
-    const editCol = tableRow.insertCell(2);
-    const editButton = document.createElement('button');
-    editButton.innerText = 'edit';
-    editButton.classList.add('btn', 'btn-outline-secondary', 'btn-sm');
-    editButton.setAttribute('data-toggle', 'modal');
-    editButton.setAttribute('data-target', '#modalEditProject');
-    editButton.onclick = () => {
-      setProjectModal(projectList.indexOf(project));
-      btnEditProject.setAttribute('curr-project-index', projectList.indexOf(project));
-    };
-    editCol.appendChild(editButton);
-
-    const deleteCol = tableRow.insertCell(3);
-    const removeButton = document.createElement('button');
-    removeButton.innerText = 'remove';
-    removeButton.classList.add('btn', 'btn-outline-danger', 'btn-sm');
-    removeButton.onclick = () => { removeProject(project); };
-    deleteCol.appendChild(removeButton);
-  });
+function editProject(projectIndex) {
+  const newName = document.getElementById('edit-project-title').value;
+  projectList[projectIndex].title = newName;
 
   saveLocal();
+  renderProjects(projectList);
 }
+
+function setProjectModal(projectIndex) {
+  document.getElementById('edit-project-title').value = projectList[projectIndex].title;
+}
+
+// remove project from projectList, save local and render
+function removeProject(project) {
+  projectList.splice(projectList.indexOf(project), 1);
+  alert(`${project.title} deleted`); // eslint-disable-line no-alert
+
+  saveLocal();
+  location.reload(); // eslint-disable-line no-restricted-globals
+}
+
+function removeTodo(project, todo) {
+  project.todos.splice(project.todos.indexOf(todo), 1);
+  alert(`${todo.title} deleted`); // eslint-disable-line no-restricted-globals
+
+  saveLocal();
+  location.reload(); // eslint-disable-line no-restricted-globals
+}
+
+function editTodo(todoIndex) {
+  const newName = document.getElementById('edit-todo-title').value;
+  projectList[currentProjectIndex].todos[todoIndex].title = newName;
+
+  const newDate = document.getElementById('edit-todo-dueDate').value;
+  projectList[currentProjectIndex].todos[todoIndex].dueDate = newDate;
+
+  const newPrior = document.getElementById('edit-todo-priority').value;
+  projectList[currentProjectIndex].todos[todoIndex].priority = newPrior;
+
+  const newDesc = document.getElementById('edit-todo-description').value;
+  projectList[currentProjectIndex].todos[todoIndex].description = newDesc;
+
+  saveLocal();
+  renderTodos(projectList[currentProjectIndex]);
+}
+
+function setTodoModal(todoIndex) {
+  document.getElementById('edit-todo-title').value = projectList[currentProjectIndex].todos[todoIndex].title;
+  document.getElementById('edit-todo-dueDate').value = projectList[currentProjectIndex].todos[todoIndex].dueDate;
+  document.getElementById('edit-todo-priority').value = projectList[currentProjectIndex].todos[todoIndex].priority;
+  document.getElementById('edit-todo-description').value = projectList[currentProjectIndex].todos[todoIndex].description;
+}
+
+// add todo to project save local and render
+function addTodo(todoList) {
+  const todoTitle = document.getElementById('new-todo-title').value;
+  const todoDueDate = document.getElementById('new-todo-dueDate').value;
+  const todoPriority = document.getElementById('new-todo-priority').value;
+  const dotoDescription = document.getElementById('new-todo-description').value;
+  const todo = new Todo(todoTitle, todoDueDate, todoPriority, dotoDescription);
+  todoList.push(todo);
+
+  saveLocal();
+  location.reload(); // eslint-disable-line no-restricted-globals
+}
+
+// add button actions
+const btnAddProject = document.getElementById('addProject');
+btnAddProject.onclick = () => { addProject(); };
+
+const btnAddTodo = document.getElementById('addTodo');
+btnAddTodo.onclick = () => { addTodo(projectList[currentProjectIndex].todos); };
+
+const btnEditProject = document.getElementById('editProject');
+btnEditProject.onclick = () => { editProject(btnEditProject.getAttribute('curr-project-index')); };
+
+const btnEditTodo = document.getElementById('editTodo');
+btnEditTodo.onclick = () => { editTodo(btnEditTodo.getAttribute('curr-todo-index')); };
 
 // render todos table
 function renderTodos(project) {
@@ -118,97 +167,47 @@ function renderTodos(project) {
   });
 }
 
-// add button actions
-const btnAddProject = document.getElementById('addProject');
-btnAddProject.onclick = () => { addProject(); };
+// render projectsList to project table
+function renderProjects(projectList) {
+  const projectTable = document.getElementById('project-table');
+  projectTable.innerHTML = '';
 
-const btnAddTodo = document.getElementById('addTodo');
-btnAddTodo.onclick = () => { addTodo(projectList[currentProjectIndex].todos); };
+  projectList.forEach((project) => {
+    const tableRow = projectTable.insertRow();
 
-const btnEditProject = document.getElementById('editProject');
-btnEditProject.onclick = () => { editProject(btnEditProject.getAttribute('curr-project-index')); };
+    const indexCol = document.createElement('th');
+    indexCol.innerHTML = projectList.indexOf(project) + 1;
 
-const btnEditTodo = document.getElementById('editTodo');
-btnEditTodo.onclick = () => { editTodo(btnEditTodo.getAttribute('curr-todo-index')); };
+    tableRow.appendChild(indexCol);
 
-// save to local storage
-function saveLocal() {
-  localStorage.setItem('projectList', JSON.stringify(projectList));
-}
+    const titleCol = tableRow.insertCell(1);
+    titleCol.innerHTML = project.title;
+    titleCol.style.cursor = 'pointer';
+    titleCol.addEventListener('click', () => {
+      renderTodos(project);
+    });
 
-// add project to projectList, save local and reload
-function addProject() {
-  const projectTitle = document.getElementById('new-project-title').value;
-  const newProject = new Project(projectTitle);
-  projectList.push(newProject);
-  saveLocal();
-  location.reload(); // eslint-disable-line no-restricted-globals
-}
+    const editCol = tableRow.insertCell(2);
+    const editButton = document.createElement('button');
+    editButton.innerText = 'edit';
+    editButton.classList.add('btn', 'btn-outline-secondary', 'btn-sm');
+    editButton.setAttribute('data-toggle', 'modal');
+    editButton.setAttribute('data-target', '#modalEditProject');
+    editButton.onclick = () => {
+      setProjectModal(projectList.indexOf(project));
+      btnEditProject.setAttribute('curr-project-index', projectList.indexOf(project));
+    };
+    editCol.appendChild(editButton);
 
-function editProject(projectIndex) {
-  const newName = document.getElementById('edit-project-title').value;
-  projectList[projectIndex].title = newName;
-
-  saveLocal();
-  renderProjects(projectList);
-}
-
-function setProjectModal(projectIndex) {
-  document.getElementById('edit-project-title').value = projectList[projectIndex].title;
-}
-
-// remove project from projectList, save local and render
-function removeProject(project) {
-  projectList.splice(projectList.indexOf(project), 1);
-  alert(`${project.title} deleted`); // eslint-disable-line no-alert
+    const deleteCol = tableRow.insertCell(3);
+    const removeButton = document.createElement('button');
+    removeButton.innerText = 'remove';
+    removeButton.classList.add('btn', 'btn-outline-danger', 'btn-sm');
+    removeButton.onclick = () => { removeProject(project); };
+    deleteCol.appendChild(removeButton);
+  });
 
   saveLocal();
-  location.reload(); //eslint-disblae-line no-restricted-globals
-}
-
-function removeTodo(project, todo) {
-  project.todos.splice(project.todos.indexOf(todo), 1);
-  alert(`${todo.title} deleted`);
-
-  saveLocal();
-  location.reload(); //eslint-disblae-line no-restricted-globals
-}
-
-function editTodo(todoIndex) {
-  const newName = document.getElementById('edit-todo-title').value;
-  projectList[currentProjectIndex].todos[todoIndex].title = newName;
-
-  const newDate = document.getElementById('edit-todo-dueDate').value;
-  projectList[currentProjectIndex].todos[todoIndex].dueDate = newDate;
-
-  const newPrior = document.getElementById('edit-todo-priority').value;
-  projectList[currentProjectIndex].todos[todoIndex].priority = newPrior;
-
-  const newDesc = document.getElementById('edit-todo-description').value;
-  projectList[currentProjectIndex].todos[todoIndex].description = newDesc;
-
-  saveLocal();
-  renderTodos(projectList[currentProjectIndex]);
-}
-
-function setTodoModal(todoIndex) {
-  document.getElementById('edit-todo-title').value = projectList[currentProjectIndex].todos[todoIndex].title;
-  document.getElementById('edit-todo-dueDate').value = projectList[currentProjectIndex].todos[todoIndex].dueDate;
-  document.getElementById('edit-todo-priority').value = projectList[currentProjectIndex].todos[todoIndex].priority;
-  document.getElementById('edit-todo-description').value = projectList[currentProjectIndex].todos[todoIndex].description;
-}
-
-// add todo to project save local and render
-function addTodo(todoList) {
-  const todoTitle = document.getElementById('new-todo-title').value;
-  const todoDueDate = document.getElementById('new-todo-dueDate').value;
-  const todoPriority = document.getElementById('new-todo-priority').value;
-  const dotoDescription = document.getElementById('new-todo-description').value;
-  const todo = new Todo(todoTitle, todoDueDate, todoPriority, dotoDescription);
-  todoList.push(todo);
-
-  saveLocal();
-  location.reload(); // eslint-disable-line no-restricted-globals
 }
 
 renderProjects(projectList);
