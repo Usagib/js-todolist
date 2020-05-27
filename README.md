@@ -26,7 +26,7 @@ this project can be found in https://github.com/Usagib/js-todolist
     <img alt="app image" src=""/>
 </a>
 
-
+![TodoList](img/screenshot.png)
 
 ## 🤝 contributing
 
