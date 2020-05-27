@@ -1,7 +1,7 @@
 import Project from '../controller/project';
 import Todo from '../controller/todo';
 
-const localProjectList = [];
+let localProjectList = [];
 
 function populateProjects() {
   const todo01P01 = new Todo('todo-01-p1', '01/01/2021', 'low', 'this is my todo 01');

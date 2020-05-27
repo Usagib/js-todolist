@@ -22,6 +22,102 @@ main.insertAdjacentHTML('beforeEnd', footer);
 const activeInfo = document.querySelector('.activeInfo');
 activeInfo.innerHTML = home;
 
+
+// render projectsList to project table
+function renderProjects(projectList) {
+  const projectTable = document.getElementById('project-table');
+  projectTable.innerHTML = '';
+
+  projectList.forEach((project) => {
+    const tableRow = projectTable.insertRow();
+
+    const indexCol = document.createElement('th');
+    indexCol.innerHTML = projectList.indexOf(project) + 1;
+
+    tableRow.appendChild(indexCol);
+
+    const titleCol = tableRow.insertCell(1);
+    titleCol.innerHTML = project.title;
+    titleCol.style.cursor = 'pointer';
+    titleCol.addEventListener('click', () => {
+      renderTodos(project);
+    });
+
+    const editCol = tableRow.insertCell(2);
+    const editButton = document.createElement('button');
+    editButton.innerText = 'edit';
+    editButton.classList.add('btn', 'btn-outline-secondary', 'btn-sm');
+    editButton.setAttribute('data-toggle', 'modal');
+    editButton.setAttribute('data-target', '#modalEditProject');
+    editButton.onclick = () => {
+      setProjectModal(projectList.indexOf(project));
+      btnEditProject.setAttribute('curr-project-index', projectList.indexOf(project));
+    };
+    editCol.appendChild(editButton);
+
+    const deleteCol = tableRow.insertCell(3);
+    const removeButton = document.createElement('button');
+    removeButton.innerText = 'remove';
+    removeButton.classList.add('btn', 'btn-outline-danger', 'btn-sm');
+    removeButton.onclick = () => { removeProject(project); };
+    deleteCol.appendChild(removeButton);
+  });
+
+  saveLocal();
+}
+
+// render todos table
+function renderTodos(project) {
+  currentProjectIndex = projectList.indexOf(project);
+
+  const todoTable = document.getElementById('todo-table');
+  todoTable.innerHTML = '';
+
+  project.todos.forEach((todo) => {
+    const tableRow = todoTable.insertRow();
+    const indexCol = document.createElement('th');
+
+    indexCol.innerHTML = project.todos.indexOf(todo) + 1;
+    tableRow.appendChild(indexCol);
+
+    const titleCol = tableRow.insertCell(1);
+    titleCol.innerHTML = todo.title;
+
+    const dueDateCol = tableRow.insertCell(2);
+    dueDateCol.innerHTML = todo.dueDate;
+
+    const priorityCol = tableRow.insertCell(3);
+    priorityCol.innerHTML = todo.priority;
+    if (todo.priority === 'low') { priorityCol.setAttribute('class', 'badge badge-success'); }
+    if (todo.priority === 'normal') { priorityCol.setAttribute('class', 'badge badge-warning'); }
+    if (todo.priority === 'important') { priorityCol.setAttribute('class', 'badge badge-danger'); }
+
+    const descriptionCol = tableRow.insertCell(4);
+    descriptionCol.innerHTML = todo.description;
+
+    const editCol = tableRow.insertCell(5);
+    const editButton = document.createElement('button');
+    editButton.innerText = 'edit';
+    editButton.classList.add('btn', 'btn-outline-secondary', 'btn-sm');
+    editButton.setAttribute('data-toggle', 'modal');
+    editButton.setAttribute('data-target', '#modalEditTodo');
+    editButton.onclick = () => {
+      setTodoModal(project.todos.indexOf(todo));
+      btnEditTodo.setAttribute('curr-todo-index', project.todos.indexOf(todo));
+    };
+    editCol.appendChild(editButton);
+
+    const removeCol = tableRow.insertCell(6);
+    const removeButton = document.createElement('button');
+    removeButton.innerText = 'remove';
+    removeButton.classList.add('btn', 'btn-outline-danger', 'btn-sm');
+    removeButton.onclick = () => {
+      removeTodo(project, todo);
+    };
+    removeCol.appendChild(removeButton);
+  });
+}
+
 // add button actions
 const btnAddProject = document.getElementById('addProject');
 btnAddProject.onclick = () => { addProject(); };
@@ -30,10 +126,10 @@ const btnAddTodo = document.getElementById('addTodo');
 btnAddTodo.onclick = () => { addTodo(projectList[currentProjectIndex].todos); };
 
 const btnEditProject = document.getElementById('editProject');
-btnEditProject.onclick = () => { editProject(btnEditProject.getAttribute("curr-project-index")); };
+btnEditProject.onclick = () => { editProject(btnEditProject.getAttribute('curr-project-index')); };
 
 const btnEditTodo = document.getElementById('editTodo');
-btnEditTodo.onclick = () => { editTodo(btnEditTodo.getAttribute("curr-todo-index")); };
+btnEditTodo.onclick = () => { editTodo(btnEditTodo.getAttribute('curr-todo-index')); };
 
 // save to local storage
 function saveLocal() {
@@ -67,15 +163,15 @@ function removeProject(project) {
   alert(`${project.title} deleted`); // eslint-disable-line no-alert
 
   saveLocal();
-  location.reload();
+  location.reload(); //eslint-disblae-line no-restricted-globals
 }
 
 function removeTodo(project, todo) {
   project.todos.splice(project.todos.indexOf(todo), 1);
-  alert(todo.title + " deleted");
+  alert(`${todo.title} deleted`);
 
   saveLocal();
-  location.reload();
+  location.reload(); //eslint-disblae-line no-restricted-globals
 }
 
 function editTodo(todoIndex) {
@@ -113,103 +209,6 @@ function addTodo(todoList) {
 
   saveLocal();
   location.reload(); // eslint-disable-line no-restricted-globals
-}
-
-// render projectsList to project table
-function renderProjects(projectList) {
-  const projectTable = document.getElementById('project-table');
-  projectTable.innerHTML = '';
-
-  projectList.forEach((project) => {
-    const tableRow = projectTable.insertRow();
-
-    const indexCol = document.createElement('th');
-    indexCol.innerHTML = projectList.indexOf(project) + 1;
-
-    tableRow.appendChild(indexCol);
-
-    const titleCol = tableRow.insertCell(1);
-    titleCol.innerHTML = project.title;
-    titleCol.style.cursor = 'pointer';
-    titleCol.addEventListener('click', () => {
-      renderTodos(project);
-    });
-
-    const editCol = tableRow.insertCell(2);
-    const editButton = document.createElement('button');
-    editButton.innerText = 'edit';
-    editButton.classList.add('btn', 'btn-outline-secondary', 'btn-sm');
-    editButton.setAttribute('data-toggle', 'modal');
-    editButton.setAttribute('data-target', "#modalEditProject");
-    editButton.onclick = () => {
-      setProjectModal(projectList.indexOf(project));
-      btnEditProject.setAttribute('curr-project-index', projectList.indexOf(project));
-    };
-    editCol.appendChild(editButton);
-
-    const deleteCol = tableRow.insertCell(3);
-    const removeButton = document.createElement('button');
-    removeButton.innerText = 'remove';
-    removeButton.classList.add('btn', 'btn-outline-danger', 'btn-sm');
-    removeButton.onclick = () => { removeProject(project); };
-    deleteCol.appendChild(removeButton);
-  });
-
-  saveLocal();
-}
-
-// render todos table
-function renderTodos(project) {
-  currentProjectIndex = projectList.indexOf(project);
-
-  const todoTable = document.getElementById('todo-table');
-  todoTable.innerHTML = '';
-
-  project.todos.forEach((todo) => {
-
-    const tableRow = todoTable.insertRow();
-    const indexCol = document.createElement('th');
-
-    indexCol.innerHTML = project.todos.indexOf(todo) + 1;
-    tableRow.appendChild(indexCol);
-
-    const titleCol = tableRow.insertCell(1);
-    titleCol.innerHTML = todo.title;
-
-    const dueDateCol = tableRow.insertCell(2);
-    dueDateCol.innerHTML = todo.dueDate;
-
-    const priorityCol = tableRow.insertCell(3);
-    priorityCol.innerHTML = todo.priority;
-    if (todo.priority === 'low') { priorityCol.setAttribute('class', 'badge badge-success'); }
-    if (todo.priority === 'normal') { priorityCol.setAttribute('class', 'badge badge-warning'); }
-    if (todo.priority === 'important') { priorityCol.setAttribute('class', 'badge badge-danger'); }
-
-    const descriptionCol = tableRow.insertCell(4);
-    descriptionCol.innerHTML = todo.description;
-
-    const editCol = tableRow.insertCell(5)
-    const editButton = document.createElement('button');
-    editButton.innerText = 'edit';
-    editButton.classList.add('btn', 'btn-outline-secondary', 'btn-sm');
-    editButton.setAttribute('data-toggle', 'modal');
-    editButton.setAttribute('data-target', "#modalEditTodo");
-    editButton.onclick = () => {
-      setTodoModal(project.todos.indexOf(todo));
-      btnEditTodo.setAttribute('curr-todo-index', project.todos.indexOf(todo));
-    };
-    editCol.appendChild(editButton);
-
-    const removeCol = tableRow.insertCell(6);
-    const removeButton = document.createElement('button');
-    removeButton.innerText = 'remove';
-    removeButton.classList.add('btn', 'btn-outline-danger', 'btn-sm');
-    removeButton.onclick = () => {
-      removeTodo(project, todo);
-    };
-    removeCol.appendChild(removeButton);
-
-  });
 }
 
 renderProjects(projectList);
