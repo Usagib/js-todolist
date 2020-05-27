@@ -54,7 +54,7 @@ function editProject(projectIndex) {
   projectList[projectIndex].title = newName;
 
   saveLocal();
-  location.reload();
+  renderProjects(projectList);
 }
 
 // remove project from projectList, save local and render
