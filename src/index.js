@@ -54,7 +54,7 @@ function editProject(projectIndex) {
   projectList[projectIndex].title = newName;
 
   saveLocal();
-  location.reload();
+  renderProjects(projectList);
 }
 
 function setProjectModal(projectIndex) {
