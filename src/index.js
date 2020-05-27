@@ -79,19 +79,18 @@ function editTodo(todoIndex) {
   const newName = document.getElementById('edit-todo-title').value;
   projectList[currentProjectIndex].todos[todoIndex].title = newName;
 
-  //const newDate = document.getElementById('edit-todo-dueDate').value;
-  //project.todos[index].dueDate = newDate;
+  const newDate = document.getElementById('edit-todo-dueDate').value;
+  projectList[currentProjectIndex].todos[todoIndex].dueDate = newDate;
 
-  //const newPrior = document.getElementById('edit-todo-priority').value;
-  //project.todos[index].priority = newPrior;
+  const newPrior = document.getElementById('edit-todo-priority').value;
+  projectList[currentProjectIndex].todos[todoIndex].priority = newPrior;
 
-  //const newDesc = document.getElementById('edit-todo-description').value;
-  //project.todos[index].description = newDesc;
+  const newDesc = document.getElementById('edit-todo-description').value;
+  projectList[currentProjectIndex].todos[todoIndex].description = newDesc;
 
   //alert(project.todos[index].title + " updated");
 
   saveLocal();
-  //location.reload();
   renderTodos(projectList[currentProjectIndex]);
 }
 
