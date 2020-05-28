@@ -24,41 +24,41 @@ activeInfo.innerHTML = home;
 
 // validators
 
-const validateAddProject = () =>{
+const validateAddProject = () => {
   let validation = true;
-  if (document.getElementById('new-project-title').value == '') validation = false;
+  if (document.getElementById('new-project-title').value === '') validation = false;
   return validation;
 };
 
 const validateEditProject = () => {
   let validation = true;
-  if (document.getElementById('edit-project-title').value == '') validation = false;
+  if (document.getElementById('edit-project-title').value === '') validation = false;
   return validation;
 };
 
 const validateAddTodo = () => {
   let validation = true;
-  if (document.getElementById('new-todo-title').value == '') {
+  if (document.getElementById('new-todo-title').value === '') {
     validation = false;
     alert('Please insert todo title'); // eslint-disable-line no-alert
-  };
+  }
   if (document.getElementById('new-todo-dueDate').value == '') {
     validation = false;
     alert('Please select due date'); // eslint-disable-line no-alert
-  };
+  }
   return validation;
 };
 
 const validateEditTodo = () => {
   let validation = true;
-  if (document.getElementById('edit-todo-title').value == '') {
+  if (document.getElementById('edit-todo-title').value === '') {
     validation = false;
     alert('Please insert todo title'); // eslint-disable-line no-alert
-  };
-  if (document.getElementById('edit-todo-dueDate').value == '') {
+  }
+  if (document.getElementById('edit-todo-dueDate').value === '') {
     validation = false;
     alert('Please select due date'); // eslint-disable-line no-alert
-  };
+  }
   return validation;
 };
 
@@ -75,26 +75,25 @@ const addProject = () => {
     projectList.push(newProject);
     saveLocal();
     location.reload(); // eslint-disable-line no-restricted-globals
-  }else{
+  } else {
     alert('Please insert a project name'); // eslint-disable-line no-alert
-  };
+  }
 };
 
 const editProject = (projectIndex) => {
-  if (validateEditProject()){
+  if (validateEditProject()) {
     const newName = document.getElementById('edit-project-title').value;
     projectList[projectIndex].title = newName;
     saveLocal();
     renderProjects(projectList); // eslint-disable-line no-use-before-define
-  }else{
+  } else {
     alert('Please insert a project name'); // eslint-disable-line no-alert
-  };
+  }
 };
 
 const setProjectModal = (projectIndex) => {
   document.getElementById('edit-project-title').value = projectList[projectIndex].title;
 };
-
 // remove project from projectList, save local and render
 const removeProject = (project) => {
 
@@ -141,7 +140,7 @@ const setTodoModal = (todoIndex) => {
 
 // add todo to project save local and render
 const addTodo = (todoList) => {
-  if (validateAddTodo()){
+  if (validateAddTodo()) {
     const todoTitle = document.getElementById('new-todo-title').value;
     const todoDueDate = document.getElementById('new-todo-dueDate').value;
     const todoPriority = document.getElementById('new-todo-priority').value;
@@ -221,7 +220,6 @@ const renderTodos = (project) => {
 
 // render projectsList to project table
 const renderProjects = (projectList) => {
-
   const projectTable = document.getElementById('project-table');
   projectTable.innerHTML = '';
 
