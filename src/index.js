@@ -42,7 +42,7 @@ const validateAddTodo = () => {
     validation = false;
     alert('Please insert todo title'); // eslint-disable-line no-alert
   }
-  if (document.getElementById('new-todo-dueDate').value == '') {
+  if (document.getElementById('new-todo-dueDate').value === '') {
     validation = false;
     alert('Please select due date'); // eslint-disable-line no-alert
   }
@@ -96,7 +96,6 @@ const setProjectModal = (projectIndex) => {
 };
 // remove project from projectList, save local and render
 const removeProject = (project) => {
-
   projectList.splice(projectList.indexOf(project), 1);
   alert(`${project.title} deleted`); // eslint-disable-line no-alert
 
@@ -128,7 +127,7 @@ const editTodo = (todoIndex) => {
 
     saveLocal();
     renderTodos(projectList[currentProjectIndex]); // eslint-disable-line no-use-before-define
-  };
+  }
 };
 
 const setTodoModal = (todoIndex) => {
