@@ -25,7 +25,7 @@ activeInfo.innerHTML = home;
 // save to local storage
 const saveLocal = () => {
   localStorage.setItem('projectList', JSON.stringify(projectList));
-}
+};
 
 // add project to projectList, save local and reload
 const addProject = () => {
@@ -34,7 +34,7 @@ const addProject = () => {
   projectList.push(newProject);
   saveLocal();
   location.reload(); // eslint-disable-line no-restricted-globals
-}
+};
 
 const editProject = (projectIndex) => {
   const newName = document.getElementById('edit-project-title').value;
@@ -42,11 +42,11 @@ const editProject = (projectIndex) => {
 
   saveLocal();
   renderProjects(projectList); // eslint-disable-line no-use-before-define
-}
+};
 
 const setProjectModal = (projectIndex) => {
   document.getElementById('edit-project-title').value = projectList[projectIndex].title;
-}
+};
 
 // remove project from projectList, save local and render
 const removeProject = (project) => {
@@ -55,7 +55,7 @@ const removeProject = (project) => {
 
   saveLocal();
   location.reload(); // eslint-disable-line no-restricted-globals
-}
+};
 
 const removeTodo = (project, todo) => {
   project.todos.splice(project.todos.indexOf(todo), 1);
@@ -63,7 +63,7 @@ const removeTodo = (project, todo) => {
 
   saveLocal();
   location.reload(); // eslint-disable-line no-restricted-globals
-}
+};
 
 const editTodo = (todoIndex) => {
   const newName = document.getElementById('edit-todo-title').value;
@@ -80,14 +80,14 @@ const editTodo = (todoIndex) => {
 
   saveLocal();
   renderTodos(projectList[currentProjectIndex]); // eslint-disable-line no-use-before-define
-}
+};
 
 const setTodoModal = (todoIndex) => {
   document.getElementById('edit-todo-title').value = projectList[currentProjectIndex].todos[todoIndex].title;
   document.getElementById('edit-todo-dueDate').value = projectList[currentProjectIndex].todos[todoIndex].dueDate;
   document.getElementById('edit-todo-priority').value = projectList[currentProjectIndex].todos[todoIndex].priority;
   document.getElementById('edit-todo-description').value = projectList[currentProjectIndex].todos[todoIndex].description;
-}
+};
 
 // add todo to project save local and render
 const addTodo = (todoList) => {
@@ -100,7 +100,7 @@ const addTodo = (todoList) => {
 
   saveLocal();
   location.reload(); // eslint-disable-line no-restricted-globals
-}
+};
 
 // add button actions
 const btnAddProject = document.getElementById('addProject');
@@ -165,7 +165,7 @@ const renderTodos = (project) => {
     };
     removeCol.appendChild(removeButton);
   });
-}
+};
 
 // render projectsList to project table
 const renderProjects = (projectList) => {
@@ -208,6 +208,6 @@ const renderProjects = (projectList) => {
   });
 
   saveLocal();
-}
+};
 
 renderProjects(projectList);
