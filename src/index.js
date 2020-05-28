@@ -22,6 +22,46 @@ main.insertAdjacentHTML('beforeEnd', footer);
 const activeInfo = document.querySelector('.activeInfo');
 activeInfo.innerHTML = home;
 
+// validators
+
+const validateAddProject = () =>{
+  let validation = true;
+  if (document.getElementById('new-project-title').value == '') validation = false;
+  return validation;
+};
+
+const validateEditProject = () => {
+  let validation = true;
+  if (document.getElementById('edit-project-title').value == '') validation = false;
+  return validation;
+};
+
+const validateAddTodo = () => {
+  let validation = true;
+  if (document.getElementById('new-todo-title').value == '') {
+    validation = false;
+    alert('Please insert todo title'); // eslint-disable-line no-alert
+  };
+  if (document.getElementById('new-todo-dueDate').value == '') {
+    validation = false;
+    alert('Please select due date'); // eslint-disable-line no-alert
+  };
+  return validation;
+};
+
+const validateEditTodo = () => {
+  let validation = true;
+  if (document.getElementById('edit-todo-title').value == '') {
+    validation = false;
+    alert('Please insert todo title'); // eslint-disable-line no-alert
+  };
+  if (document.getElementById('edit-todo-dueDate').value == '') {
+    validation = false;
+    alert('Please select due date'); // eslint-disable-line no-alert
+  };
+  return validation;
+};
+
 // save to local storage
 const saveLocal = () => {
   localStorage.setItem('projectList', JSON.stringify(projectList));
@@ -29,19 +69,26 @@ const saveLocal = () => {
 
 // add project to projectList, save local and reload
 const addProject = () => {
-  const projectTitle = document.getElementById('new-project-title').value;
-  const newProject = new Project(projectTitle);
-  projectList.push(newProject);
-  saveLocal();
-  location.reload(); // eslint-disable-line no-restricted-globals
+  if (validateAddProject()) {
+    const projectTitle = document.getElementById('new-project-title').value;
+    const newProject = new Project(projectTitle);
+    projectList.push(newProject);
+    saveLocal();
+    location.reload(); // eslint-disable-line no-restricted-globals
+  }else{
+    alert('Please insert a project name'); // eslint-disable-line no-alert
+  };
 };
 
 const editProject = (projectIndex) => {
-  const newName = document.getElementById('edit-project-title').value;
-  projectList[projectIndex].title = newName;
-
-  saveLocal();
-  renderProjects(projectList); // eslint-disable-line no-use-before-define
+  if (validateEditProject()){
+    const newName = document.getElementById('edit-project-title').value;
+    projectList[projectIndex].title = newName;
+    saveLocal();
+    renderProjects(projectList); // eslint-disable-line no-use-before-define
+  }else{
+    alert('Please insert a project name'); // eslint-disable-line no-alert
+  };
 };
 
 const setProjectModal = (projectIndex) => {
@@ -50,6 +97,7 @@ const setProjectModal = (projectIndex) => {
 
 // remove project from projectList, save local and render
 const removeProject = (project) => {
+
   projectList.splice(projectList.indexOf(project), 1);
   alert(`${project.title} deleted`); // eslint-disable-line no-alert
 
@@ -66,20 +114,22 @@ const removeTodo = (project, todo) => {
 };
 
 const editTodo = (todoIndex) => {
-  const newName = document.getElementById('edit-todo-title').value;
-  projectList[currentProjectIndex].todos[todoIndex].title = newName;
+  if (validateEditTodo()) {
+    const newName = document.getElementById('edit-todo-title').value;
+    projectList[currentProjectIndex].todos[todoIndex].title = newName;
 
-  const newDate = document.getElementById('edit-todo-dueDate').value;
-  projectList[currentProjectIndex].todos[todoIndex].dueDate = newDate;
+    const newDate = document.getElementById('edit-todo-dueDate').value;
+    projectList[currentProjectIndex].todos[todoIndex].dueDate = newDate;
 
-  const newPrior = document.getElementById('edit-todo-priority').value;
-  projectList[currentProjectIndex].todos[todoIndex].priority = newPrior;
+    const newPrior = document.getElementById('edit-todo-priority').value;
+    projectList[currentProjectIndex].todos[todoIndex].priority = newPrior;
 
-  const newDesc = document.getElementById('edit-todo-description').value;
-  projectList[currentProjectIndex].todos[todoIndex].description = newDesc;
+    const newDesc = document.getElementById('edit-todo-description').value;
+    projectList[currentProjectIndex].todos[todoIndex].description = newDesc;
 
-  saveLocal();
-  renderTodos(projectList[currentProjectIndex]); // eslint-disable-line no-use-before-define
+    saveLocal();
+    renderTodos(projectList[currentProjectIndex]); // eslint-disable-line no-use-before-define
+  };
 };
 
 const setTodoModal = (todoIndex) => {
@@ -91,15 +141,17 @@ const setTodoModal = (todoIndex) => {
 
 // add todo to project save local and render
 const addTodo = (todoList) => {
-  const todoTitle = document.getElementById('new-todo-title').value;
-  const todoDueDate = document.getElementById('new-todo-dueDate').value;
-  const todoPriority = document.getElementById('new-todo-priority').value;
-  const dotoDescription = document.getElementById('new-todo-description').value;
-  const todo = new Todo(todoTitle, todoDueDate, todoPriority, dotoDescription);
-  todoList.push(todo);
+  if (validateAddTodo()){
+    const todoTitle = document.getElementById('new-todo-title').value;
+    const todoDueDate = document.getElementById('new-todo-dueDate').value;
+    const todoPriority = document.getElementById('new-todo-priority').value;
+    const dotoDescription = document.getElementById('new-todo-description').value;
+    const todo = new Todo(todoTitle, todoDueDate, todoPriority, dotoDescription);
+    todoList.push(todo);
 
-  saveLocal();
-  location.reload(); // eslint-disable-line no-restricted-globals
+    saveLocal();
+    location.reload(); // eslint-disable-line no-restricted-globals
+  };
 };
 
 // add button actions
@@ -169,6 +221,7 @@ const renderTodos = (project) => {
 
 // render projectsList to project table
 const renderProjects = (projectList) => {
+
   const projectTable = document.getElementById('project-table');
   projectTable.innerHTML = '';
 
@@ -184,6 +237,8 @@ const renderProjects = (projectList) => {
     titleCol.innerHTML = project.title;
     titleCol.style.cursor = 'pointer';
     titleCol.addEventListener('click', () => {
+      const toggle = document.getElementById('newTodoToggle');
+      toggle.setAttribute('style', 'display : block; !important');
       renderTodos(project);
     });
 

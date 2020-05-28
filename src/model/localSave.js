@@ -16,7 +16,7 @@ const populateProjects = () => {
   localProjectList.push(new Project('project-01', [todo01P01, todo02P01, todo03P01]));
   localProjectList.push(new Project('project-02', [todo01P02, todo02P02]));
   localProjectList.push(new Project('project-03', [todo01P03]));
-}
+};
 
 // store lib in localstorage
 if (localStorage.getItem('projectList') === null) {

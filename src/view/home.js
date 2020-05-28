@@ -29,7 +29,7 @@ const home =
   <div class="col col-md-7">
     <div class='row justify-content-between p-3'>
       <h3>todos</h3>
-      <button class='btn btn-info' data-toggle="modal" data-target="#modalTodo">new todo</button>
+      <button id="newTodoToggle" class='btn btn-info' data-toggle="modal" data-target="#modalTodo">new todo</button>
     </div>
     <table class="table table-striped table-hover" id='todo-table-header'">
       <thead>

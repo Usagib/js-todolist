@@ -46,3 +46,7 @@ footer {
 footer small {
   float: right;
 }
+
+#newTodoToggle {
+  display: none;
+}
