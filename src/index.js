@@ -23,12 +23,12 @@ const activeInfo = document.querySelector('.activeInfo');
 activeInfo.innerHTML = home;
 
 // save to local storage
-function saveLocal() {
+const saveLocal = () => {
   localStorage.setItem('projectList', JSON.stringify(projectList));
 }
 
 // add project to projectList, save local and reload
-function addProject() {
+const addProject = () => {
   const projectTitle = document.getElementById('new-project-title').value;
   const newProject = new Project(projectTitle);
   projectList.push(newProject);
@@ -36,7 +36,7 @@ function addProject() {
   location.reload(); // eslint-disable-line no-restricted-globals
 }
 
-function editProject(projectIndex) {
+const editProject = (projectIndex) => {
   const newName = document.getElementById('edit-project-title').value;
   projectList[projectIndex].title = newName;
 
@@ -44,12 +44,12 @@ function editProject(projectIndex) {
   renderProjects(projectList); // eslint-disable-line no-use-before-define
 }
 
-function setProjectModal(projectIndex) {
+const setProjectModal = (projectIndex) => {
   document.getElementById('edit-project-title').value = projectList[projectIndex].title;
 }
 
 // remove project from projectList, save local and render
-function removeProject(project) {
+const removeProject = (project) => {
   projectList.splice(projectList.indexOf(project), 1);
   alert(`${project.title} deleted`); // eslint-disable-line no-alert
 
@@ -57,7 +57,7 @@ function removeProject(project) {
   location.reload(); // eslint-disable-line no-restricted-globals
 }
 
-function removeTodo(project, todo) {
+const removeTodo = (project, todo) => {
   project.todos.splice(project.todos.indexOf(todo), 1);
   alert(`${todo.title} deleted`); // eslint-disable-line no-alert
 
@@ -65,7 +65,7 @@ function removeTodo(project, todo) {
   location.reload(); // eslint-disable-line no-restricted-globals
 }
 
-function editTodo(todoIndex) {
+const editTodo = (todoIndex) => {
   const newName = document.getElementById('edit-todo-title').value;
   projectList[currentProjectIndex].todos[todoIndex].title = newName;
 
@@ -82,7 +82,7 @@ function editTodo(todoIndex) {
   renderTodos(projectList[currentProjectIndex]); // eslint-disable-line no-use-before-define
 }
 
-function setTodoModal(todoIndex) {
+const setTodoModal = (todoIndex) => {
   document.getElementById('edit-todo-title').value = projectList[currentProjectIndex].todos[todoIndex].title;
   document.getElementById('edit-todo-dueDate').value = projectList[currentProjectIndex].todos[todoIndex].dueDate;
   document.getElementById('edit-todo-priority').value = projectList[currentProjectIndex].todos[todoIndex].priority;
@@ -90,7 +90,7 @@ function setTodoModal(todoIndex) {
 }
 
 // add todo to project save local and render
-function addTodo(todoList) {
+const addTodo = (todoList) => {
   const todoTitle = document.getElementById('new-todo-title').value;
   const todoDueDate = document.getElementById('new-todo-dueDate').value;
   const todoPriority = document.getElementById('new-todo-priority').value;
@@ -116,7 +116,7 @@ const btnEditTodo = document.getElementById('editTodo');
 btnEditTodo.onclick = () => { editTodo(btnEditTodo.getAttribute('curr-todo-index')); };
 
 // render todos table
-function renderTodos(project) {
+const renderTodos = (project) => {
   currentProjectIndex = projectList.indexOf(project);
 
   const todoTable = document.getElementById('todo-table');
@@ -168,7 +168,7 @@ function renderTodos(project) {
 }
 
 // render projectsList to project table
-function renderProjects(projectList) {
+const renderProjects = (projectList) => {
   const projectTable = document.getElementById('project-table');
   projectTable.innerHTML = '';
 
