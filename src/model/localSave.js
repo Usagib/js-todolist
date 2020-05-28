@@ -3,7 +3,7 @@ import Todo from '../controller/todo';
 
 let localProjectList = []; // eslint-disable-line import/no-mutable-exports
 
-function populateProjects() {
+const populateProjects = () => {
   const todo01P01 = new Todo('todo-01-p1', '01/01/2021', 'low', 'this is my todo 01');
   const todo02P01 = new Todo('todo-02-p1', '01/01/2022', 'normal', 'this is my todo 02');
   const todo03P01 = new Todo('todo-03-p1', '01/01/2022', 'important', 'this is my todo 03');
