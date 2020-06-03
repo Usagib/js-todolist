@@ -7,12 +7,29 @@ body {
   overflow-x: hidden;
 }
 
+h1 {
+  text-shadow: 1px 1px 3px black;
+}
+
 a {
   color: gray;
 }
 
 a:hover {
   color: black;
+}
+
+/* table and badge */
+.table th, .table td {
+  padding: 0.5rem;
+  vertical-align: middle;
+  border-top: 0px;
+}
+
+.badge {
+  display: block;
+  margin-top: 0.5rem !important;
+  border: none;
 }
 
 /* imges */
@@ -28,4 +45,8 @@ footer {
 
 footer small {
   float: right;
+}
+
+#newTodoToggle {
+  display: none;
 }
